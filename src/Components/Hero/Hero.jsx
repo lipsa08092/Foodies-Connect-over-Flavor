@@ -15,7 +15,7 @@ export const Slideup = (delay) => {
     show: {
       y: 0,
       opacity: 1,
-      transition: {
+    transition: {
         duration: 0.6,
         delay: delay,
       },
