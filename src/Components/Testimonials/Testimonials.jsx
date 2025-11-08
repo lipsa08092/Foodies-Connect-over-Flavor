@@ -37,7 +37,11 @@ function Testimonials() {
                 whileInView="show"
               >
                 <h2 className="text-xl font-bold ">Aman Gupta</h2>
-                <p className="text-sm">Designation</p>
+                <motion.p 
+                variants={Slideup(1.5)}
+                initial="hidden"
+                whileInView="show"
+                className="text-sm">Designation</motion.p>
               </motion.div>
             </div>
           </div>
