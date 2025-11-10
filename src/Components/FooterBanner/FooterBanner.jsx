@@ -15,10 +15,10 @@ function FooterBanner() {
         <motion.h2 variants={Slideup(0.4)}
                   initial="hidden"
                   whileInView="show" className="text-3xl lg:text-4xl font-thin italic text-white ">SUBSCRIBE</motion.h2>
-        <motion.h2  variants={Slideup(0.6)}
+        <motion.h2 variants={Slideup(0.6)}
                   initial="hidden"
                   whileInView="show"
-             className="text-5xl lg:text-7xl  font-serif text-gray-100 animate-pulse ">
+                  className="text-5xl lg:text-7xl  font-serif text-gray-100 animate-pulse ">
           NEWSLETTER
         </motion.h2>
 

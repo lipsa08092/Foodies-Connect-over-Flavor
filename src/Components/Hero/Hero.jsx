@@ -56,9 +56,7 @@ function Hero() {
               whileInView="show"
               className="text-sm"
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              dolorem est dolore atque ad mollitia dolores aut voluptatum unde
-              quisquam!
+              Cooking is all about people. Food is maybe the only universal thing that really has the power to bring everyone together.Cooking is an art, but all art requires knowing something about the techniques and materials.
             </motion.p>
             <motion.button
               variants={Slideup(2)}

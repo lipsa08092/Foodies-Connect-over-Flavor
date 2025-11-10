@@ -4,6 +4,8 @@ import { IoCartOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoClose } from "react-icons/io5";
+import { Link } from "react-router-dom";
+import { useCart } from "../../Context/CartContext";
 
 const NavMenu = [
   {
@@ -33,7 +35,7 @@ const NavMenu = [
   {
     id: 5,
     title: "Contact Us",
-    path: "/",
+    path: "/contactus",
     delay: 0.1,
   },
 ];
@@ -76,13 +78,14 @@ export const SlideLeft = (delay = 0) => {
 
 function Navbar() {
   const [menuopen, setMenuopen] = useState(false);
+  const { totalItems } = useCart();
 
   const handleMenuToggle = () => {
     setMenuopen(!menuopen);
   };
 
   return (
-    <nav className="relative">
+    <nav className="relative ">
       <div className="container flex justify-between items-center font-league py-4">
         <motion.img
           initial={{ opacity: 0 }}
@@ -103,9 +106,9 @@ function Navbar() {
                   animate="animate"
                   className="nav-menu"
                 >
-                  <a href={menu.path} className="flex px-2 py-2 text-2xl">
+                  <Link to={menu.path} className="flex px-2 py-2 text-2xl">
                     {menu.title}
-                  </a>
+                  </Link>
                 </motion.li>
               );
             })}
@@ -117,10 +120,18 @@ function Navbar() {
             variants={SlideDown(1)}
             initial="initial"
             animate="animate"
+            className="relative"
           >
-            <button className="h-[40px] w-[40px] grid place-items-center rounded-full text-white bg-dark">
-              <IoCartOutline size={22} />
-            </button>
+            <Link to="/cart">
+              <button className="h-[40px] w-[40px] grid place-items-center rounded-full text-white bg-dark relative">
+                <IoCartOutline size={22} />
+                {totalItems > 0 && (
+                  <span className="absolute -top-3 -right-2 bg-yellow-500 text-black text-md px-2 font-mono rounded-full">
+                    {totalItems}
+                  </span>
+                )}
+              </button>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -158,13 +169,13 @@ function Navbar() {
               initial="hidden"
               animate={menuopen ? "show" : "hidden"}
             >
-              <a
-                href={menu.path}
-                className=" hover:text-yellow-700 hover:underline transition"
+              <Link
+                to={menu.path}
+                className="hover:text-yellow-700 hover:underline transition"
                 onClick={() => setMenuopen(false)}
               >
                 {menu.title}
-              </a>
+              </Link>
             </motion.li>
           ))}
         </ul>
