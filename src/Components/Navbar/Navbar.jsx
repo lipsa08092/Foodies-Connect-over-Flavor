@@ -22,21 +22,27 @@ const NavMenu = [
   },
   {
     id: 3,
-    title: "Menu",
-    path: "/menu",
+    title: "Products",
+    path: "/products",
     delay: 0.3,
   },
   {
     id: 4,
-    title: "Delivery",
-    path: "/delivery",
+    title: "Menu",
+    path: "/menu",
     delay: 0.4,
   },
   {
     id: 5,
+    title: "Delivery",
+    path: "/delivery",
+    delay: 0.5,
+  },
+  {
+    id: 6,
     title: "Contact Us",
     path: "/contactus",
-    delay: 0.1,
+    delay: 0.6,
   },
 ];
 
@@ -85,7 +91,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="relative ">
+    <nav className="relative shadow-lg ">
       <div className="container flex justify-between items-center font-league py-4">
         <motion.img
           initial={{ opacity: 0 }}

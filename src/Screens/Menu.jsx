@@ -137,7 +137,7 @@ function Menu() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-40 h-40 object-containmb-4 hover:scale-110 transition-transform duration-300"
+                  className="w-40 h-40 object-contain mb-4 hover:scale-110 transition-transform duration-300"
                 />
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">
                   {item.name}

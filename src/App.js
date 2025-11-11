@@ -11,6 +11,7 @@ import FooterBanner from "./Components/FooterBanner/FooterBanner";
 import Footer from "./Components/Footer/Footer";
 import Menu from "./Screens/Menu";
 import Cart from "./Screens/MyCart"
+import Products from "./Screens/Products";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" element={<Menu />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/about" element={<Menu />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/delivery" element={<Menu />} />
           <Route path="/contactus" element={<Menu />} />
           <Route path="/cart" element={<Cart />} />
