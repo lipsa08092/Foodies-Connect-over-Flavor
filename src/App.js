@@ -13,13 +13,15 @@ import Menu from "./Screens/Menu";
 import Cart from "./Screens/MyCart"
 import Products from "./Screens/Products";
 import SingleProduct from "./Screens/SingleProduct";
+import ContactUs from "./Screens/ContactUs";
+import AboutUs from "./Screens/AboutUs"
 
 function App() {
   return (
     <Router>
       <div className="overflow-x-hidden bg-white text-dark">
         <Navbar />
-
+        <div className="pt-28">
         <Routes>
           <Route
             path="/"
@@ -38,13 +40,13 @@ function App() {
           />
           <Route path="/" element={<Menu />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="/about" element={<Menu />} />
-          <Route path="/delivery" element={<Menu />} />
-          <Route path="/contactus" element={<Menu />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contactus" element={< ContactUs/>} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
+        </div>
 
         <Footer />
       </div>

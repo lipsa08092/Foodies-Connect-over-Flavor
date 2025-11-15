@@ -5,6 +5,7 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { MdEdit } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { IoSearchSharp } from "react-icons/io5";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -27,6 +28,11 @@ function Products() {
     returnPolicy: "",
     reviews: "",
     images: [],
+  });
+  const [searchList, setSearchList] = useState([]);
+  const [deleteModal, setDeleteModal] = useState({
+    open: false,
+    product: null,
   });
 
   useEffect(() => {
@@ -70,6 +76,19 @@ function Products() {
     else setFiltered(products.filter((item) => item.category === category));
   };
 
+  const handleSearchClick = (e) => {
+    const value = (e.target?.value || "").toLowerCase();
+    setSearchList(value);
+    const result = products.filter(
+      (p) =>
+        (p.title?.toLowerCase() || "").includes(value) ||
+        (p.category?.toLowerCase() || "").includes(value) ||
+        (p.brand?.toLowerCase() || "").includes(value) ||
+        (p.description?.toLowerCase() || "").includes(value)
+    );
+    setFiltered(result);
+  };
+
   // const openProductDetails = async (productId) => {
   //   try {
   //     const foundProduct = products.find((p) => p.id === productId);
@@ -91,6 +110,28 @@ function Products() {
   //   setSelectedProduct(null);
   //   localStorage.removeItem("selectedProduct");
   // };
+  //  const handleSearch = (e) => {
+  //   const value = e.target.value.toLowerCase();
+  //   setSearchList(value);
+
+  //   const result = products.filter((p) =>
+  //     (p.title?.toLowerCase() || "").includes(value) ||
+  //     (p.category?.toLowerCase() || "").includes(value) ||
+  //     (p.brand?.toLowerCase() || "").includes(value) ||
+  //     (p.description?.toLowerCase() || "").includes(value)
+  //   );
+
+  //   setFiltered(result);
+  // };
+
+  // useEffect(() => {
+  //   fetch("https://dummyjson.com/products/search?q=")
+  //   .then (res => res.json())
+  //   .then (data=> {
+  //     setFiltered(data.products);
+  //     setProducts(data.products);
+  //   })
+  // },[]),
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -152,7 +193,6 @@ function Products() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newProduct = {
       id: editProduct ? editProduct.id : Date.now(),
       ...formData,
@@ -185,7 +225,6 @@ function Products() {
 
   const deleteProduct = (id) => {
     const updated = products.filter((p) => p.id !== id);
-
     setProducts(updated);
     setFiltered(updated);
     localStorage.setItem("products", JSON.stringify(updated));
@@ -210,6 +249,16 @@ function Products() {
         </button>
       </div>
 
+      <div className="mb-6 flex justify-center relative">
+        <input
+          type="text"
+          placeholder="Search products..."
+          className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-1 focus:ring-yellow-400"
+          onChange={handleSearchClick}
+        />
+        <IoSearchSharp className="absolute top-3 right-3 text-gray-500 text-lg" />
+      </div>
+
       <div className="flex flex-wrap justify-center gap-4 mb-10">
         {categories.map((cat) => (
           <button
@@ -226,7 +275,8 @@ function Products() {
         ))}
       </div>
 
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
+      {/* product grid */}
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filtered.map((product) => (
           <div
             key={product.id}
@@ -261,7 +311,6 @@ function Products() {
                 </div>
               </div>
             </Link>
-
             <button
               onClick={(e) => {
                 e.preventDefault();
@@ -274,12 +323,68 @@ function Products() {
             <button
               onClick={(e) => {
                 e.preventDefault();
-                deleteProduct(product.id);
+                setDeleteModal({ open: true, product });
               }}
               className="absolute top-10 right-2 text-white bg-red-500 hover:bg-red-600 rounded-full p-1"
             >
               <RiDeleteBinLine />
             </button>
+
+            {/* delete modal */}
+            {deleteModal.open && (
+              <div className="fixed inset-0 bg-white p-6">
+                  <button
+                    onClick={() =>
+                      setDeleteModal({ open: false, product: null })
+                    }
+                    className="absolute top-4 right-4 text-gray-700 hover:text-black text-3xl"
+                  >
+                    <RiCloseLine />
+                  </button>
+
+                  <h2 className="text-2xl  font-bold text-red-600 text-center mb-4">
+                    Confirm Delete ?
+                  </h2>
+
+                  <img
+                    src={deleteModal.product.thumbnail}
+                    alt={deleteModal.product.title}
+                    className="w-full h-48 object-contain mb-4"
+                  />
+
+                  <h3 className="text-xl font-semibold mb-2 text-center">
+                    {deleteModal.product.title}
+                  </h3>
+
+                  <p className="text-center text-gray-600 mb-4">
+                    Category: {deleteModal.product.category}
+                  </p>
+
+                  <p className="text-center text-yellow-600 mb-4 font-bold">
+                    Price: ${deleteModal.product.price}
+                  </p>
+
+                  <div className="flex gap-6 mt-6 items-center justify-center ">
+                    <button
+                      onClick={() =>
+                        setDeleteModal({ open: false, product: null })
+                      }
+                      className="px-6 py-3  bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => {
+                        deleteProduct(deleteModal.product.id);
+                        setDeleteModal({ open: false, product: null });
+                      }}
+                      className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+            )}
           </div>
         ))}
       </div>
@@ -378,6 +483,7 @@ function Products() {
       )} */}
 
       {/*Add/Edit*/}
+
       {showForm && (
         <div className="fixed inset-0 bg-white overflow-y-auto p-6">
           <button
@@ -405,7 +511,7 @@ function Products() {
 
             <div>
               <label className="block font-semibold font-serif mb-1">
-                Price ($):
+                Price (₹):
               </label>
               <input
                 type="number"
@@ -557,7 +663,6 @@ function Products() {
                 onChange={handleMultipleImages}
                 className="w-full border rounded-lg p-2"
               />
-
               {formData.images.length > 0 && (
                 <div className="mt-4">
                   <label className="block font-semibold font-serif mb-2 text-lg">

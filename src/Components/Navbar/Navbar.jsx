@@ -32,17 +32,12 @@ const NavMenu = [
     path: "/menu",
     delay: 0.4,
   },
+ 
   {
     id: 5,
-    title: "Delivery",
-    path: "/delivery",
-    delay: 0.5,
-  },
-  {
-    id: 6,
     title: "Contact Us",
     path: "/contactus",
-    delay: 0.6,
+    delay: 0.5,
   },
 ];
 
@@ -91,7 +86,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="relative shadow-lg ">
+    <nav className="fixed top-0 left-0 w-full shadow-lg bg-white z-50">
+
       <div className="container flex justify-between items-center font-league py-4">
         <motion.img
           initial={{ opacity: 0 }}
